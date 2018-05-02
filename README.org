@@ -1,0 +1,56 @@
+#+OPTIONS: ':nil *:t -:t ::t <:t H:5 \n:nil ^:{} arch:headline author:t broken-links:nil
+#+OPTIONS: c:nil creator:nil d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t num:nil
+#+OPTIONS: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t timestamp:nil title:t toc:5
+#+OPTIONS: todo:t |:t
+#+TITLE: sparql & turtle highlight.js in reveal.js
+#+DATE: <2018-05-02>
+#+AUTHOR: Vladimir Alexiev
+#+EMAIL: vladimir.alexiev@ontotext.com
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 25.3.1 (Org mode 9.1.9)
+
+* Intro
+This project adds highlighters for the semantic languages Turtle and SPARQL to highlight.js, and then reveal.js.
+It assumes the three projects are cloned next to each other.
+** Links
+- https://github.com/hakimel/reveal.js/blob/master/plugin/highlight/highlight.js embeds v9.11.0 (13 months old)
+- https://github.com/isagalaev/highlight.js/pull/1553 adds sparql/turtle, and has been waiting for 11 months. 
+- can be downloaded from https://github.com/ellismarkf/highlight.js/tree/feature/language-sparql-ttl
+- https://github.com/hakimel/reveal.js/issues/2148 is to upgrade reveal.js (to a future 9.13)
+- https://github.com/isagalaev/highlight.js/issues/1736 (notified @ellismarkf) asks for fixes to ttl parser
+* Steps to Build
+1. git clone https://github.com/ellismarkf/highlight.js/
+2. switch highlight.js to branch feature/language-sparql-ttl
+3. git clone https://github.com/hakimel/reveal.js
+4. read https://github.com/isagalaev/highlight.js/blob/master/docs/building-testing.rst
+5. install node.js from https://nodejs.org/en/download/
+6. install prerequisites
+  : cd highlight.js 
+  : npm install
+7. OPT: see options of the build tool
+  : node tools/build.js --help
+8. OPT: build semantic languages (2) without compression, so they can be debugged
+  : node tools/build.js -n sparql ttl
+9. OPT: check highlighting: open tools/developer.html and try these files:
+   - test/detect/sparql/default.txt
+   - test/detect/ttl/default.txt
+8. build all required languages (23 core + 2 semantic) with compression
+  : node tools/build.js :common sparql ttl
+10. copy highlight.js/build/highlight.pack.js into reveal.js/plugin/highlight/highlight.js
+    using the script [[./highlight-to-reveal.sh]]
+* How to Use in Your Project
+Add modules in your project (~.gitmodules~)
+#+BEGIN_EXAMPLE
+[submodule "scripts/highlight.js"]
+	path = scripts/highlight.js
+	url = https://github.com/VladimirAlexiev/highlight.js
+	branch = feature/language-sparql-ttl
+[submodule "scripts/reveal.js"]
+	path = scripts/highlight.js
+	url = https://github.com/VladimirAlexiev/reveal.js
+[submodule "scripts/highlight-to-reveal"]
+	path = scripts/highlight-to-reveal
+	url = https://github.com/VladimirAlexiev/highlight-to-reveal
+#+END_EXAMPLE
