@@ -3,7 +3,7 @@
 #+OPTIONS: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t timestamp:nil title:t toc:5
 #+OPTIONS: todo:t |:t
 #+TITLE: sparql & turtle highlight.js in reveal.js
-#+DATE: <2018-05-02>
+#+DATE: <2018-05-09>
 #+AUTHOR: Vladimir Alexiev
 #+EMAIL: vladimir.alexiev@ontotext.com
 #+LANGUAGE: en
@@ -38,19 +38,24 @@ It assumes the three projects are cloned next to each other.
    - test/detect/ttl/default.txt
 8. build all required languages (23 core + 2 semantic) with compression
   : node tools/build.js :common sparql ttl
-10. copy highlight.js/build/highlight.pack.js into reveal.js/plugin/highlight/highlight.js
+10. copy ~highlight.js/build/highlight.pack.js~ into ~reveal.js/plugin/highlight/highlight.js~
     using the script [[./highlight-to-reveal.sh]]
 * How to Use in Your Project
-Add modules in your project (~.gitmodules~)
+Add sub-modules to your project (~.gitmodules~)
 #+BEGIN_EXAMPLE
 [submodule "scripts/highlight.js"]
 	path = scripts/highlight.js
 	url = https://github.com/VladimirAlexiev/highlight.js
 	branch = feature/language-sparql-ttl
-[submodule "scripts/reveal.js"]
-	path = scripts/highlight.js
-	url = https://github.com/VladimirAlexiev/reveal.js
 [submodule "scripts/highlight-to-reveal"]
 	path = scripts/highlight-to-reveal
 	url = https://github.com/VladimirAlexiev/highlight-to-reveal
 #+END_EXAMPLE
+If you don't need to modify ~reveal~, also use it as a sub-module. 
+The version below patches ~plugin/highlight/highlight.js~ to add sparql and turtle:
+#+BEGIN_EXAMPLE
+[submodule "scripts/reveal.js"]
+	path = scripts/highlight.js
+	url = https://github.com/VladimirAlexiev/reveal.js
+#+END_EXAMPLE
+If you need to modify ~reveal~ (eg to add an Ontotext theme), clone this repo and modify it.
