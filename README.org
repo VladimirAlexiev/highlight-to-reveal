@@ -3,7 +3,7 @@
 #+OPTIONS: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t timestamp:nil title:t toc:5
 #+OPTIONS: todo:t |:t
 #+TITLE: sparql & turtle highlight.js in reveal.js
-#+DATE: <2018-05-09>
+#+DATE: <2018-05-24>
 #+AUTHOR: Vladimir Alexiev
 #+EMAIL: vladimir.alexiev@ontotext.com
 #+LANGUAGE: en
@@ -32,12 +32,13 @@ It assumes the three projects are cloned next to each other.
 7. OPT: see options of the build tool
   : node tools/build.js --help
 8. OPT: build semantic languages (2) without compression, so they can be debugged
-  : node tools/build.js -n sparql ttl
+  : node tools/build.js -n sparql ttl pie
 9. OPT: check highlighting: open tools/developer.html and try these files:
    - test/detect/sparql/default.txt
    - test/detect/ttl/default.txt
+   - test/detect/pie/default.txt
 8. build all required languages (23 core + 2 semantic) with compression
-  : node tools/build.js :common sparql ttl
+  : node tools/build.js :common sparql ttl pie
 10. copy ~highlight.js/build/highlight.pack.js~ into ~reveal.js/plugin/highlight/highlight.js~
     using the script [[./highlight-to-reveal.sh]]
 * How to Use in Your Project
